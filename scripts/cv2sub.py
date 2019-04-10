@@ -12,6 +12,7 @@ sys.path.insert(0, os.path.join(cur_dir, 'models/research/object_detection'))
 
 import roslib
 import rospy
+import numpy.core.multiarray
 import cv2
 import numpy as np
 import tensorflow as tf
@@ -39,10 +40,10 @@ def create_holelist(nn_list):
 class image_converter:
   def __init__(self):
     self.bridge = CvBridge()
-    self.image_sub = rospy.Subscriber("image_topic", Image, self.callback)
+    self.image_sub = rospy.Subscriber("prius/front_camera/image_raw", Image, self.callback)
     self.damage_pub = rospy.Publisher("boxes_topic", road_damage_list, queue_size=16)
     print('Subscriber Init complited.')
-    
+
   def callback(self,data):
     try:
         cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
@@ -55,17 +56,17 @@ class image_converter:
     except CvBridgeError as e:
         print(e)
 
-    #cv_image = cv2.resize(cv_image, (480, 360))
-    #cv2.imshow("Image window", cv_image)
-    #cv2.waitKey(3)
+    # cv_image = cv2.resize(cv_image, (480, 360))
+    # cv2.imshow("Image window", cv_image)
+    # cv2.waitKey(3)
 
 
- 
+
 def main(args):
-    
+
     rospy.init_node('image_converter_sub', anonymous=True)
     ic = image_converter()
-    
+
     try:
         rospy.spin()
     except KeyboardInterrupt:
@@ -74,4 +75,3 @@ def main(args):
 
 if __name__ == '__main__':
     main(sys.argv)
-
