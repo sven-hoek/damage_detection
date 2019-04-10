@@ -6,27 +6,16 @@ import cv2
 import os
 import json
 
-
 from utils import label_map_util
 from utils import visualization_utils as vis_util
 
-PATH_TO_FROZEN_GRAPH = os.path.join(os.getcwd(), 'model/pit_model.pb')
-PATH_TO_LABELS = os.path.join(os.getcwd(),'model/pit_label.pbtxt')
+cur_dir = os.path.dirname(os.path.abspath(__file__))
+
+PATH_TO_FROZEN_GRAPH = os.path.join(cur_dir, 'model/pit_model.pb')
+PATH_TO_LABELS = os.path.join(cur_dir,'model/pit_label.pbtxt')
 
 detection_graph = tf.Graph()
 category_index = None
-
-class Pit:
-    def __init__(self, x0, y0, x1, y1, prob):
-        self.x0 = x0
-        self.x1 = x1
-        self.y0 = y0
-        self.y1 = y1
-        self.prob = prob
-
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=True, indent=4)
 
 def load_model(model_path, label_path):
     

@@ -21,7 +21,8 @@ class image_converter:
     print('Publisher Init complited.')
 
 def main(args):
-    imgs_path = os.path.join(os.getcwd(), 'test_images') + '/*'
+    cur_dir = os.path.dirname(os.path.abspath(__file__))
+    imgs_path = os.path.join(cur_dir, 'test_images') + '/*'
     img_list = glob.glob(imgs_path)
     img_index = 0
     img_len = len(img_list)

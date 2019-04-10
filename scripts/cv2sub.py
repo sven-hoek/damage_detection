@@ -1,17 +1,21 @@
 #!/usr/bin/env python
 from __future__ import print_function
 
-import roslib
 import os
 import sys
+
+cur_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(cur_dir, 'models/research'))
+sys.path.insert(0, os.path.join(cur_dir, 'models/research/slim'))
+sys.path.insert(0, os.path.join(cur_dir, 'models/research/object_detection'))
+
+
+import roslib
 import rospy
 import cv2
 import numpy as np
 import tensorflow as tf
-
-sys.path.insert(0, os.path.join(os.getcwd(), 'models/research'))
-sys.path.insert(0, os.path.join(os.getcwd(), 'models/research/slim'))
-sys.path.insert(0, os.path.join(os.getcwd(), 'models/research/object_detection'))
+import damage_detection.msg
 
 import custom_model as cm
 
