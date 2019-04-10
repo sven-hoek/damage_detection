@@ -8,7 +8,7 @@ import prius_msgs.msg
 
 class Simple_control:
     def __init__(self):
-        self.damage_sub = rospy.Subscriber("road_damages", road_damage_list, self.callback)
+        self.damage_sub = rospy.Subscriber("boxes_topic", road_damage_list, self.callback)
         self.control_pub = rospy.Publisher("prius", prius_msgs.msg.Control, queue_size=4)
 
     def callback(self, data):
