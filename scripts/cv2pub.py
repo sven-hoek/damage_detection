@@ -41,9 +41,9 @@ def main(args):
           ic.image_pub.publish(ic.bridge.cv2_to_imgmsg(cv_image, "bgr8"))
         except CvBridgeError as e:
           print(e)
-        cv_image = cv2.resize(cv_image, (480, 360))
-        cv2.imshow("Image window", cv_image)
-        cv2.waitKey(3)
+        #cv_image = cv2.resize(cv_image, (480, 360))
+        #cv2.imshow("Image window", cv_image)
+        #cv2.waitKey(3)
         rate.sleep()
 
 if __name__ == '__main__':
