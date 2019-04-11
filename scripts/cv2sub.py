@@ -32,8 +32,8 @@ def create_holelist(nn_list):
         hole.top_left.y = y0
         hole.bottom_right.x = x1
         hole.bottom_right.y = y1
-	hole.probability = prob
-	holes.damages.append(hole)
+        hole.probability = prob
+        holes.damages.append(hole)
     return holes
 
 
@@ -51,6 +51,8 @@ class image_converter:
         print(e)
 
     hole_list = create_holelist(cm.get_objects(cv_image))
+    print('Received an image and detected {} road damages.'.format(len(hole_list.damages)))
+    print(hole_list)
     try:
         self.damage_pub.publish(hole_list)
     except CvBridgeError as e:
@@ -63,9 +65,8 @@ class image_converter:
 
 
 def main(args):
-
-    rospy.init_node('image_converter_sub', anonymous=True)
     ic = image_converter()
+    rospy.init_node('image_converter_sub', anonymous=True)
 
     try:
         rospy.spin()
