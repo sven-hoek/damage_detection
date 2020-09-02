@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<launch>
+  <!--  ************** Navigation ***************  -->
+	<node pkg="topic_tools" type="relay" name="odom_relay" respawn="false" output="screen" args="base_pose_ground_truth odom"/>
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+
+	  <!--rosparam file="$(find damage_detection)/cfg/costmap_common_params.yaml" command="load" ns="global_costmap" /-->
+	 	<!--rosparam file="$(find damage_detection)/cfg/costmap_common_params.yaml" command="load" ns="local_costmap" /-->
+		<!--rosparam file="$(find damage_detection)/cfg/local_costmap_params.yaml" command="load" /-->
+		<!--rosparam file="$(find damage_detection)/cfg/global_costmap_params.yaml" command="load" /-->
+		<!--rosparam file="$(find damage_detection)/cfg/teb_local_planner_params.yaml" command="load" /-->
+
+    <!--rosparam file="$(find damage_detection)/cfg/costmap_conversion_params.yaml" command="load" /-->
+
+		<param name="base_global_planner" value="global_planner/GlobalPlanner" />
+		<param name="planner_frequency" value="1.0" />
+		<param name="planner_patience" value="5.0" />
+
+		<param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+		<param name="controller_frequency" value="5.0" />
+		<param name="controller_patience" value="15.0" />
+
+    <param name="clearing_rotation_allowed" value="false" /> <!-- Our carlike robot is not able to rotate in place -->
+	</node>
+
+
+	<!--  ****** Maps *****  -->
+	<!--node name="map_server" pkg="map_server" type="map_server" args="$(find teb_local_planner_tutorials)/maps/maze.yaml" output="screen">
+		<param name="frame_id" value="/map"/>
+	</node-->
+
+	<!--node pkg="amcl" type="amcl" name="amcl" output="screen">
+		<rosparam file="$(find teb_local_planner_tutorials)/cfg/amcl_params.yaml" command="load" />
+
+	        <param name="initial_pose_x"            value="2"/>
+		<param name="initial_pose_y"            value="2"/>
+		<param name="initial_pose_a"            value="0"/>
+	</node-->
+
+	  <!--  **************** Visualisation ****************  -->
+	  <!--node name="rviz" pkg="rviz" type="rviz" args="-d $(find teb_local_planner_tutorials)/cfg/rviz_navigation.rviz"/-->
+    <!--node pkg="tf" type="static_transform_publisher" name="base_link_map_tf_publisher" args="1 1 0 0 0 0 1 base_link map 30"/-->
+</launch>
